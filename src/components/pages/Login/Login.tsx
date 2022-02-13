@@ -3,6 +3,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom"
 import { authContext } from "../../../contexts/AuthContext"
 import Form from "../../molecules/Form/Form"
 import { ROUTES } from "../../../constants"
+import { Credentials } from "../../../API/API"
 import "./Login.scss"
 
 const Login: React.FC = () => {
@@ -14,8 +15,8 @@ const Login: React.FC = () => {
         return <Navigate to={ROUTES.Chat} state={{ from: location }} replace />
     }
 
-    const login = (credentials: { user: string; password: string }) => {
-        auth.signin(credentials.user, () => {
+    const login = (credentials: Credentials) => {
+        auth.signin(credentials, () => {
             navigate(ROUTES.Chat, { replace: true })
         })
     }

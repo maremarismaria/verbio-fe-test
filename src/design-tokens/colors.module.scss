@@ -1,0 +1,56 @@
+
+$black: #101010;
+$white: #FAFAFA;
+
+$primary-main: #ff1f58;
+$primary-dark: #BA002F;
+$primary-light: #FF98A5;
+
+$secondary-main: #0cddb8;
+$secondary-dark: #0a8d75;
+$secondary-light: #0ce3bd;
+
+$info-main: #0288d1;
+$info-dark: #01579b;
+$info-light: #03a9f4;
+
+$error-main: #EB0014;
+$error-dark: #C70011;
+$error-light: #FF99A2;
+
+$success-main: #1AA251;
+$success-dark: #1AA251;
+$success-light: #6AE79C;
+
+$warning-main: #DEA500;
+$warning-dark: #AB6800;
+$warning-light: #FFDC48;
+
+:export {
+    black: $black;
+    white: $white;
+
+    primary-main: $primary-main;
+    primary-dark: $primary-dark;
+    primary-light: $primary-light;
+
+    secondary-main: $secondary-main;
+    secondary-dark: $secondary-dark;
+    secondary-light: $secondary-light;
+
+    info-main: $info-main;
+    info-dark: $info-dark;
+    info-light: $info-light;
+
+    error-main: $error-main;
+    error-dark: $error-dark;
+    error-light: $error-light;
+
+    success-main: $success-main;
+    success-dark: $success-dark;
+    success-light: $success-light;
+
+    warning-main: $warning-main;
+    warning-dark: $warning-dark;
+    warning-light: $warning-light;
+}

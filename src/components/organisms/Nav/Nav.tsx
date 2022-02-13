@@ -1,6 +1,7 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { authContext } from "../../../contexts/AuthContext"
+import { ROUTES } from "../../../constants"
 import "./Nav.scss"
 
 const Nav: React.FC = () => {
@@ -8,7 +9,7 @@ const Nav: React.FC = () => {
     const navigate = useNavigate()
 
     const signOut = () => {
-        auth.signout(() => navigate("/"))
+        auth.signout(() => navigate(ROUTES.Login))
     }
 
     const renderSignOut = () => {

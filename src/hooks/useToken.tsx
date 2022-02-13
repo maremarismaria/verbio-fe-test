@@ -1,6 +1,5 @@
 import { useState } from "react"
-
-const STORAGE_KEY = "token"
+import { STORAGE_KEY } from "../constants"
 
 type Token = string | null
 

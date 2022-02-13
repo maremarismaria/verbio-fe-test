@@ -1,6 +1,7 @@
 import React from "react"
 import { Navigate, useLocation } from "react-router-dom"
 import { authContext } from "../../../contexts/AuthContext"
+import { ROUTES } from "../../../constants"
 
 interface Props {
     children: JSX.Element
@@ -11,7 +12,7 @@ const AuthWrapper: React.FC<Props> = ({ children }) => {
     const location = useLocation()
 
     if (!auth.user) {
-        return <Navigate to="/" state={{ from: location }} replace />
+        return <Navigate to={ROUTES.Login} state={{ from: location }} replace />
     }
 
     return children

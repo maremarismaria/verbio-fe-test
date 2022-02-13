@@ -7,6 +7,7 @@ import Login from "../Login/Login"
 import Chat from "../Chat/Chat"
 import NotFound from "../NotFound/NotFound"
 import Logo from "../../../assets/images/logo.svg"
+import { ROUTES } from "../../../constants"
 import "./App.scss"
 
 const App: React.FC = () => {
@@ -23,14 +24,14 @@ const App: React.FC = () => {
                         <Routes>
                             <Route index element={<Login />} />
                             <Route
-                                path="/chat"
+                                path={ROUTES.Chat}
                                 element={
                                     <AuthWrapper>
                                         <Chat />
                                     </AuthWrapper>
                                 }
                             />
-                            <Route path="*" element={<NotFound />} />
+                            <Route path={"*"} element={<NotFound />} />
                         </Routes>
                     </BrowserRouter>
                 </main>

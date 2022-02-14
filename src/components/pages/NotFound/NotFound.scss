@@ -1,2 +1,44 @@
+@import "../../../design-tokens/colors.module.scss";
+
 .NotFound {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    h2,
+    p {
+        margin-bottom: 1em;
+    }
+
+    p:last-of-type {
+        margin-bottom: 1.5em;
+    }
+
+    a {
+        cursor: pointer;
+        text-align: center;
+        padding: 0.5em 1em;
+        margin: 0;
+        border-radius: 4px;
+        color: $white;
+        text-transform: uppercase;
+        font-weight: bold;
+        text-decoration: none;
+        background-color: $secondary-main;
+        transition: background-color 0.3s;
+
+        &:link,
+        &:visited,
+        &:hover,
+        &:active {
+            color: $white;
+            text-decoration: none;
+        }
+
+        &:hover {
+            background-color: darken($secondary-main, 10%);
+        }
+    }
 }

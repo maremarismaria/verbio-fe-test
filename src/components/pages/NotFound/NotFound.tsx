@@ -17,8 +17,8 @@ const NotFound: React.FC = () => {
     return (
         <article className="NotFound">
             <h2>404</h2>
-            <p>Page not found :(</p>
-            <p>The requested page could not be found.</p>
+            <p>🧐 Page not found</p>
+            <p>Sorry, the requested page could not be found.</p>
             <Link to={ROUTES.Login} state={{ from }} replace>
                 Go back
             </Link>

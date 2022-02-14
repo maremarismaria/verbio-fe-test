@@ -7,6 +7,10 @@
         "name": "María Morales",
         "email": "mariamoralespadron@gmail.com"
     },
+    "engines": {
+        "node": "14.17.0",
+        "yarn": "1.22.17"
+    },
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.2",
         "@testing-library/react": "^12.1.2",

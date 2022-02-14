@@ -1,0 +1,11 @@
+{
+    "baseUrl": "http://localhost:3000",
+    "integrationFolder": "cypress/tests",
+    "env": {
+        "slug": {
+            "index": "/",
+            "chat": "/chat",
+            "not-found": "/insignificant"
+        }
+    }
+}

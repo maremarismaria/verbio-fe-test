@@ -86,6 +86,14 @@ Runs Storybook in the development mode. Open [http://localhost:6006](http://loca
 
 Builds Storybook for production to the `storybook-static` folder.
 
+### `cypress:open`
+
+Open the Cypress Component Test Runner.
+
+### `cypress:run`
+
+Executes all the specs over the console (does not open the Test Runner client).
+
 ## Project structure
     .
     ├── .storybook              # Storybook configuration
@@ -119,6 +127,7 @@ for that reason you see the separation in atoms, molecules, organisms and pages.
 - [SASS](https://sass-lang.com) - CSS with superpowers
 - [Storybook](https://storybook.js.org/) - Tool for building UI components and pages in isolation
 - [Prettier](https://prettier.io/) - Code formatter
+- [Cypress](https://www.cypress.io/) - End-to-End testing framework for web test automation
 
 ## Authors
 
@@ -133,5 +142,5 @@ The SVG Background was made by [BGJar](https://bgjar.com), and shared under the 
 
 ## Acknowledgments
 
-* To the React, TypeScript, Testing Library, React Router, SASS, Storybook, Prettier, and all the Open Source developers for allowing us to continue building amazing things.
+* To the React, TypeScript, Testing Library, React Router, SASS, Storybook, Prettier, Cypress and all the Open Source developers for allowing us to continue building amazing things.
 * To the Verbio Team, for this opportunity, and for your time.

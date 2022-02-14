@@ -28,3 +28,7 @@ yarn-error.log*
 
 # Environment variables
 .env
+
+# Cypress stuff
+/cypress/videos
+/cypress/downloads

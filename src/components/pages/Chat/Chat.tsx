@@ -10,9 +10,10 @@ import "./Chat.scss"
 /**
  * Notes about the chat component:
  *
- * I would nice to implement an emoji picker, but time runs out!
- * Nice to have: initialize messages list using Local Storage
- * Nice to have: update sender status from online to typing
+ * NTH implement an emoji picker, but time runs out!
+ * NTH initialize messages list using Local Storage
+ * NTH update sender status from online to typing
+ * NTH make the chat image clickable for full size preview
  */
 
 interface ChatMessage extends BotMessage {
@@ -61,22 +62,37 @@ const Chat: React.FC = () => {
 
     const getWelcomeMessage = async () => {
         try {
-            const messages = await auth.getWelcomeMessage()
-            setServerMessages(messages)
+            const response = await auth.getWelcomeMessage()
+
+            if (!!response.error) {
+                alert(response.error)
+            }
+
+            setServerMessages(response.data)
         } catch (e) {
-            console.error(e.toString())
+            alert(e)
         }
     }
 
     const sendMessage = async (text: string) => {
         try {
-            const messages = await auth.sendMessage(text)
-            const userMessage = parseMessage(auth.user, NullTheCat, text)
+            const response = await auth.sendMessage(text)
+
+            const userMessage = parseMessage(
+                auth.session.user.name,
+                NullTheCat,
+                text
+            )
+
             updateMessages(userMessage)
+
+            if (!!response.error) {
+                alert(response.error)
+            }
 
             // TODO Image type
         } catch (e) {
-            console.error(e.toString())
+            alert(e)
         }
     }
 
@@ -97,7 +113,7 @@ const Chat: React.FC = () => {
     }
 
     const isUser = (name: string) => {
-        return auth.user === name
+        return auth.session.user.name === name
     }
 
     const renderMessages = () => {

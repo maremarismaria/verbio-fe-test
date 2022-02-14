@@ -15,6 +15,21 @@ const ENDPOINTS = {
     },
 }
 
+enum HTTPStatuses {
+    UNAUTHORIZED = 401,
+}
+
+export type BotMessage = {
+    text?: string
+    url?: string
+    type: string
+}
+
+export type APIResponse = {
+    data?: BotMessage[]
+    error?: string
+}
+
 /**
  * LOGIN
  */
@@ -31,45 +46,43 @@ type LoginResponse = {
 type LoginRequest = (credentials: Credentials) => Promise<LoginResponse>
 
 export const login: LoginRequest = async (credentials) => {
-    try {
-        const response = await fetch(ENDPOINTS.login.uri, {
-            method: ENDPOINTS.login.method,
-            body: JSON.stringify({ ...credentials }),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-        return await response.json()
-    } catch (e) {
-        console.error(e.toString())
-    }
+    const response = await fetch(ENDPOINTS.login.uri, {
+        method: ENDPOINTS.login.method,
+        body: JSON.stringify({ ...credentials }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+
+    return await response.json()
 }
 
 /**
  * GET WELCOME MESSAGE
  */
 
-export type BotMessage = {
-    text?: string
-    url?: string
-    type: string
-}
-
-type GetWelcomeMessageRequest = (token: string) => Promise<BotMessage[]>
+type GetWelcomeMessageRequest = (token: string) => Promise<APIResponse>
 
 export const getWelcomeMessage: GetWelcomeMessageRequest = async (token) => {
-    try {
-        const response = await fetch(ENDPOINTS.getWelcomeMessage.uri, {
-            method: ENDPOINTS.getWelcomeMessage.method,
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        const data = await response.json()
-        return data.response
-    } catch (e) {
-        console.error(e.toString())
+    const response = await fetch(ENDPOINTS.getWelcomeMessage.uri, {
+        method: ENDPOINTS.getWelcomeMessage.method,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    })
+
+    if (HTTPStatuses.UNAUTHORIZED === response.status) {
+        return {
+            data: undefined,
+            error: "Sorry, it looks like your session just expired. Please, sign in again.",
+        }
+    }
+
+    const data = await response.json()
+    return {
+        data: data.response,
+        error: "",
     }
 }
 
@@ -77,21 +90,28 @@ export const getWelcomeMessage: GetWelcomeMessageRequest = async (token) => {
  * SEND MESSAGE
  */
 
-type SendMessageRequest = (token: string, text: string) => Promise<BotMessage[]>
+type SendMessageRequest = (token: string, text: string) => Promise<APIResponse>
 
 export const sendMessage: SendMessageRequest = async (token, text) => {
-    try {
-        const response = await fetch(ENDPOINTS.sendMessage.uri, {
-            method: ENDPOINTS.sendMessage.method,
-            body: JSON.stringify({ text }),
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        })
-        const data = await response.json()
-        return data.response
-    } catch (e) {
-        console.error(e.toString())
+    const response = await fetch(ENDPOINTS.sendMessage.uri, {
+        method: ENDPOINTS.sendMessage.method,
+        body: JSON.stringify({ text }),
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    })
+
+    if (HTTPStatuses.UNAUTHORIZED === response.status) {
+        return {
+            data: undefined,
+            error: "Sorry, it looks like your session just expired. Please, sign in again.",
+        }
+    }
+
+    const data = await response.json()
+    return {
+        data: data.response,
+        error: "",
     }
 }

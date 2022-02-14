@@ -9,7 +9,7 @@ const Nav: React.FC = () => {
     const navigate = useNavigate()
 
     const signOut = () => {
-        auth.signout(() => navigate(ROUTES.Login))
+        auth.logout(() => navigate(ROUTES.Login))
     }
 
     const renderNav = () => {
@@ -24,7 +24,7 @@ const Nav: React.FC = () => {
         )
     }
 
-    return !!auth.user ? renderNav() : null
+    return auth.session.user.isAuthenticated ? renderNav() : null
 }
 
 export default Nav

@@ -11,7 +11,7 @@ const AuthWrapper: React.FC<Props> = ({ children }) => {
     const auth = authContext()
     const location = useLocation()
 
-    if (!auth.user) {
+    if (!auth.session.user.isAuthenticated) {
         return <Navigate to={ROUTES.Login} state={{ from: location }} replace />
     }
 

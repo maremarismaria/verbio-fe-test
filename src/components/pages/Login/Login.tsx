@@ -11,18 +11,18 @@ const Login: React.FC = () => {
     const location = useLocation()
     const auth = authContext()
 
-    if (!!auth.user) {
+    if (auth.session.user.isAuthenticated) {
         return <Navigate to={ROUTES.Chat} state={{ from: location }} replace />
     }
 
     const login = (credentials: Credentials) => {
-        auth.signin(credentials, () => {
+        auth.login(credentials, () => {
             navigate(ROUTES.Chat, { replace: true })
         })
     }
 
     return (
-        <article className="Login">
+        <article className={"Login"}>
             <h2>Welcome back!</h2>
             <Form action={login} />
         </article>

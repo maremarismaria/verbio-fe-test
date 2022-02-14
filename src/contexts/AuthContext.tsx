@@ -1,13 +1,14 @@
 import React from "react"
-import useToken from "../hooks/useToken"
+import useSession, { emptySession, Session } from "../hooks/useSession"
 import * as API from "../API/API"
+import { APIResponse } from "../API/API"
 
 interface AuthContextType {
-    user: any
-    signin: (credentials: API.Credentials, callback: Function) => void
-    signout: (callback: Function) => void
-    getWelcomeMessage: () => Promise<API.BotMessage[] | undefined>
-    sendMessage: (text: string) => Promise<API.BotMessage[] | undefined>
+    session: Session
+    login: (credentials: API.Credentials, callback: Function) => void
+    logout: (callback: Function) => void
+    getWelcomeMessage: () => Promise<APIResponse>
+    sendMessage: (text: string) => Promise<APIResponse>
 }
 
 const AuthContext = React.createContext<AuthContextType>(null!)
@@ -21,43 +22,42 @@ export function AuthContextProvider({
 }: {
     children: React.ReactNode
 }) {
-    const { token, setToken } = useToken()
-    const [user, setUser] = React.useState<string | null>()
+    const { session, setSession } = useSession()
 
-    const signin = async (credentials: API.Credentials, callback: Function) => {
-        try {
-            const response = await API.login(credentials)
-            setUser(credentials.user)
-            setToken(response.session_id)
-            callback()
-        } catch (e) {
-            console.error(e.toString())
-        }
+    const login = async (credentials: API.Credentials, callback: Function) => {
+        const response = await API.login(credentials)
+
+        setSession(
+            {
+                user: {
+                    name: credentials.user,
+                    isAuthenticated: true,
+                },
+                token: response.session_id,
+            },
+            callback
+        )
     }
 
-    const signout = async (callback: Function) => {
-        setUser(null)
-        setToken(null)
-        callback()
+    const logout = async (callback: Function) => {
+        setSession(emptySession, callback)
     }
 
     const getWelcomeMessage = async () => {
-        try {
-            return await API.getWelcomeMessage(token || "")
-        } catch (e) {
-            console.error(e.toString())
-        }
+        return await API.getWelcomeMessage(session.token)
     }
 
     const sendMessage = async (text: string) => {
-        try {
-            return await API.sendMessage(token || "", text)
-        } catch (e) {
-            console.error(e.toString())
-        }
+        return await API.sendMessage(session.token, text)
     }
 
-    const value = { user, signin, signout, getWelcomeMessage, sendMessage }
+    const value = {
+        session,
+        login,
+        logout,
+        getWelcomeMessage,
+        sendMessage,
+    }
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

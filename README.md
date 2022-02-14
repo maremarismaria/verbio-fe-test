@@ -133,5 +133,5 @@ The SVG Background was made by [BGJar](https://bgjar.com), and shared under the 
 
 ## Acknowledgments
 
-* To the CRA, TS, RTL, React Router, SASS, Storybook, Prettier, and all the Open Source developers for allowing us to continue building amazing things.
+* To the React, TypeScript, Testing Library, React Router, SASS, Storybook, Prettier, and all the Open Source developers for allowing us to continue building amazing things.
 * To the Verbio Team, for this opportunity, and for your time.

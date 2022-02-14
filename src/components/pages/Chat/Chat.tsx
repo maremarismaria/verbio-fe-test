@@ -32,6 +32,7 @@ const Chat: React.FC = () => {
     const navigate = useNavigate()
     const formRef: React.RefObject<HTMLFormElement> = React.createRef()
     const [messages, setMessages] = useState<ChatMessage[]>([])
+    const [serverTyping, setServerTyping] = useState(false)
 
     useEffect(() => {
         if (!messages.length) {
@@ -64,12 +65,19 @@ const Chat: React.FC = () => {
 
     const setServerMessages = (messages: BotMessage[] | undefined) => {
         if (messages && !!messages.length) {
-            for (let i = 0; i < messages.length; i++) {
+            let i = 0
+            const intervalId = setInterval(() => {
+                setServerTyping(true)
                 const message = parseMessage("Server", MochaTheChihuahua, {
                     ...messages[i],
                 })
                 updateMessages(message)
-            }
+                i++
+                if (i === messages.length) {
+                    setServerTyping(false)
+                    clearInterval(intervalId)
+                }
+            }, 1500)
         }
     }
 
@@ -207,7 +215,9 @@ const Chat: React.FC = () => {
         <article className="Chat">
             <div className={"chat-header"}>
                 <p className={"receiver"}>Server</p>
-                <p className={"status"}>Online</p>
+                <p className={"status"}>
+                    {serverTyping ? "Typing..." : "Online"}
+                </p>
             </div>
 
             {renderMessages()}

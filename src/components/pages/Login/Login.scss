@@ -1,2 +1,15 @@
+@import "../../../design-tokens/colors.module.scss";
+
 .Login {
+    padding: 2em;
+
+    h2 {
+        text-align: center;
+        margin: 0;
+    }
+
+    form {
+        margin: 0 auto;
+        width: max-content;
+    }
 }

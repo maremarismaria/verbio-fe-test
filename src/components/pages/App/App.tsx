@@ -15,8 +15,8 @@ const App: React.FC = () => {
         <AuthContextProvider>
             <div className="App">
                 <header>
-                    <img alt={"Verbio"} src={Logo} />
                     <h1>Front-End Test</h1>
+                    <img className={"logo"} alt={"Verbio"} src={Logo} />
                 </header>
                 <main role={"main"}>
                     <BrowserRouter>
@@ -35,7 +35,9 @@ const App: React.FC = () => {
                         </Routes>
                     </BrowserRouter>
                 </main>
-                <footer>Footer</footer>
+                <footer>
+                    <p>María Morales</p>
+                </footer>
             </div>
         </AuthContextProvider>
     )

@@ -12,6 +12,7 @@ import "./Chat.scss"
  *
  * I would nice to implement an emoji picker, but time runs out!
  * Nice to have: initialize messages list using Local Storage
+ * Nice to have: update sender status from online to typing
  */
 
 interface ChatMessage extends BotMessage {
@@ -95,6 +96,10 @@ const Chat: React.FC = () => {
         }
     }
 
+    const isUser = (name: string) => {
+        return auth.user === name
+    }
+
     const renderMessages = () => {
         /**
          * React.Children.toArray manages automatically the children's keys,
@@ -103,21 +108,30 @@ const Chat: React.FC = () => {
         return (
             <ul className={"message-list"}>
                 {React.Children.toArray(
-                    messages.map((message) => (
-                        <li className={"message-item"}>
-                            <img
-                                className={"avatar"}
-                                width={"32px"}
-                                height={"32px"}
-                                alt={message.sender.name}
-                                src={message.sender.avatar}
-                            />
-                            <span className={"message"}>{message.text}</span>
-                            <span className={"hour"}>
-                                {getHour(message.timestamp)}
-                            </span>
-                        </li>
-                    ))
+                    messages.map((message) => {
+                        const isSelf = isUser(message.sender.name)
+                        const modifier = isSelf ? "self" : ""
+                        return (
+                            <li className={`message-item ${modifier}`}>
+                                <img
+                                    className={"avatar"}
+                                    width={"32px"}
+                                    height={"32px"}
+                                    alt={message.sender.name}
+                                    src={message.sender.avatar}
+                                />
+                                <div className={"message-wrapper"}>
+                                    <p className={"sender"}>
+                                        {message.sender.name}
+                                    </p>
+                                    <p className={"message"}>{message.text}</p>
+                                    <p className={"hour"}>
+                                        {getHour(message.timestamp)}
+                                    </p>
+                                </div>
+                            </li>
+                        )
+                    })
                 )}
             </ul>
         )
@@ -125,8 +139,6 @@ const Chat: React.FC = () => {
 
     return (
         <article className="Chat">
-            <h2>Chat</h2>
-
             <div className={"chat-header"}>
                 <p className={"receiver"}>Server</p>
                 <p className={"status"}>Online</p>
@@ -143,7 +155,7 @@ const Chat: React.FC = () => {
                         placeholder={"Write a message..."}
                         aria-required
                     />
-                    <input type={"submit"} value={"Send"} />
+                    <button type={"submit"}>&#10148;</button>
                 </form>
             </div>
         </article>

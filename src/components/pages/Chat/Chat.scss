@@ -1,2 +1,141 @@
+@import "../../../design-tokens/colors.module.scss";
+
 .Chat {
+    display: flex;
+    flex-direction: column;
+    flex: 90%;
+
+    .chat-header {
+        flex: 10%;
+        padding: 0.5em;
+        background-color: darken($white, 10%);
+
+        .receiver,
+        .status {
+            margin: 0;
+        }
+
+        .receiver {
+            font-weight: bold;
+            font-size: 1.2em;
+            line-height: 1.2em;
+            margin-bottom: 0.2em;
+        }
+
+        .status {
+            // color: lighten($black, 10%);
+            color: $success-main;
+            font-weight: lighter;
+            font-style: italic;
+            font-size: 0.8em;
+            line-height: 0.8em;
+        }
+    }
+    .message-list {
+        list-style-type: none;
+        padding: 1em;
+        margin: 0;
+        flex: 80%;
+        overflow: auto;
+
+        .message-item {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-end;
+            margin-bottom: 0.5em;
+
+            &:not(:last-child) {
+                margin-bottom: 0.5em;
+            }
+
+            .avatar {
+                border-radius: 50%;
+                margin: 0 0.5em;
+            }
+
+            .message-wrapper {
+                padding: 0.5em;
+                border: 2px solid $info-main;
+                background-color: rgba($info-light, 0.5);
+                border-radius: 12px 12px 12px 0;
+                min-width: 120px;
+
+                .sender,
+                .message,
+                .hour {
+                    margin: 0 0 0.5em;
+                    font-size: 0.8em;
+                    line-height: 1em;
+                }
+
+                .sender {
+                    font-weight: bold;
+                }
+
+                .message {
+                    margin-bottom: 0.8em;
+                }
+
+                .hour {
+                    color: lighten($black, 10%);
+                    font-weight: lighter;
+                    text-align: right;
+                }
+            }
+
+            &.self {
+                flex-direction: row-reverse;
+
+                .message-wrapper {
+                    border: 2px solid $secondary-dark;
+                    background-color: rgba($secondary-main, 0.5);
+                    border-radius: 12px 12px 0 12px;
+                }
+            }
+        }
+    }
+
+    .message-box {
+        flex: 10%;
+        background-color: darken($white, 10%);
+        padding: 0.5em;
+
+        form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        input {
+            flex: 80%;
+            margin-right: 0.5em;
+        }
+
+        button {
+            flex: 20%;
+            cursor: pointer;
+            text-align: center;
+            padding: 0.5em 1em;
+            margin: 0;
+            border: none;
+            border-radius: 50%;
+            color: $white;
+            text-transform: uppercase;
+            font-weight: bold;
+            background-color: $secondary-dark;
+            transition: background-color 0.3s;
+            height: 32px;
+            width: 32px;
+            max-width: 32px;
+            font-size: 1em;
+            line-height: 1em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:hover {
+                background-color: darken($secondary-dark, 10%);
+            }
+        }
+    }
 }

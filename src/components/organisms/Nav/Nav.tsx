@@ -12,21 +12,19 @@ const Nav: React.FC = () => {
         auth.signout(() => navigate(ROUTES.Login))
     }
 
-    const renderSignOut = () => {
-        if (!!auth.user) {
-            return (
-                <li>
-                    <button onClick={signOut}>Sign out</button>
-                </li>
-            )
-        }
+    const renderNav = () => {
+        return (
+            <nav className={"Nav"}>
+                <ul>
+                    <li>
+                        <button onClick={signOut}>Sign out</button>
+                    </li>
+                </ul>
+            </nav>
+        )
     }
 
-    return (
-        <nav className={"Nav"}>
-            <ul>{renderSignOut()}</ul>
-        </nav>
-    )
+    return !!auth.user ? renderNav() : null
 }
 
 export default Nav

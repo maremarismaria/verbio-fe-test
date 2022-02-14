@@ -1,15 +1,13 @@
 import { useState } from "react"
 import { STORAGE_KEY } from "../constants"
 
-type Token = string
-
 type User = {
     name: string
     isAuthenticated: boolean
 }
 
 export interface Session {
-    token: Token
+    token: string
     user: User
 }
 

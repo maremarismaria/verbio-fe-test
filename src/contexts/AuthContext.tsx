@@ -1,14 +1,18 @@
 import React from "react"
 import useSession, { emptySession, Session } from "../hooks/useSession"
+import { DEFAULT_ERROR_MESSAGE } from "../constants"
 import * as API from "../API/API"
-import { APIResponse } from "../API/API"
 
 interface AuthContextType {
     session: Session
-    login: (credentials: API.Credentials, callback: Function) => void
+    login: (
+        credentials: API.Credentials,
+        onSuccess: Function,
+        onError: Function
+    ) => void
     logout: (callback: Function) => void
-    getWelcomeMessage: () => Promise<APIResponse>
-    sendMessage: (text: string) => Promise<APIResponse>
+    getWelcomeMessage: () => Promise<API.APIResponse>
+    sendMessage: (text: string) => Promise<API.APIResponse>
 }
 
 const AuthContext = React.createContext<AuthContextType>(null!)
@@ -24,24 +28,32 @@ export function AuthContextProvider({
 }) {
     const { session, setSession } = useSession()
 
-    const login = async (credentials: API.Credentials, callback: Function) => {
-        const response = await API.login(credentials)
+    const login = async (
+        credentials: API.Credentials,
+        onSuccess: Function,
+        onError: Function
+    ) => {
+        try {
+            const response = await API.login(credentials)
 
-        if (!response.data) {
-            callback(response)
-            return
-        }
+            if (!response.data) {
+                onSuccess(response)
+                return
+            }
 
-        setSession(
-            {
-                user: {
-                    name: credentials.user,
-                    isAuthenticated: true,
+            setSession(
+                {
+                    user: {
+                        name: credentials.user,
+                        isAuthenticated: true,
+                    },
+                    token: response.data.session_id,
                 },
-                token: response.data.session_id,
-            },
-            callback(response)
-        )
+                onSuccess(response)
+            )
+        } catch (e) {
+            onError(DEFAULT_ERROR_MESSAGE)
+        }
     }
 
     const logout = async (callback: Function) => {

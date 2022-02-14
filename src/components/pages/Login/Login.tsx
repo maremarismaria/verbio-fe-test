@@ -17,14 +17,20 @@ const Login: React.FC = () => {
         return <Navigate to={ROUTES.Chat} state={{ from: location }} replace />
     }
 
+    const onSuccess = (response: LoginResponse) => {
+        if (!!response.error) {
+            renderError(response.error)
+        } else {
+            navigate(ROUTES.Chat, { replace: true })
+        }
+    }
+
+    const onError = (error: string) => {
+        renderError(error)
+    }
+
     const login = (credentials: Credentials) => {
-        auth.login(credentials, (response: LoginResponse) => {
-            if (!!response.error) {
-                renderError(response.error)
-            } else {
-                navigate(ROUTES.Chat, { replace: true })
-            }
-        })
+        auth.login(credentials, onSuccess, onError)
     }
 
     const renderError = (error: string) => {

@@ -20,6 +20,7 @@ import "./Chat.scss"
  * NTH implement an emoji picker, but time runs out!
  * NTH initialize messages list using Local Storage
  * NTH make the chat image clickable for full size preview
+ * NTH keep scroll on the bottom after sending or receiving messages
  */
 
 interface ChatMessage extends BotMessage {

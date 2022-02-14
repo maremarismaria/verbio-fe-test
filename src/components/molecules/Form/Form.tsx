@@ -30,6 +30,7 @@ const Form: React.FC<Props> = ({ action }) => {
             return renderWarning("Please, enter a correct user and password.")
         }
 
+        // TODO Close opened warning toast if the action is performed
         action({ user, password })
     }
 

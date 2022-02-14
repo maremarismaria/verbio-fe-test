@@ -63,3 +63,9 @@ Open [http://localhost:6006](http://localhost:6006) to view it in the browser.
 
 Builds Storybook for production to the `storybook-static` folder.
 
+## License
+
+All the assets related to [Verbio](https://www.verbio.com/), such as the favicon, the logo, or the color palette used on this project belongs to Verbio Technologies S.L.
+They were used on this technical assessment just for contextualization.
+
+The SVG Background was made by [BGJar](https://bgjar.com), and shared under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.

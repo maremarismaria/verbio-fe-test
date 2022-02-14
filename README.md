@@ -80,6 +80,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 Formats all files supported by Prettier in the current directory and its subdirectories. 
 
 ### `yarn storybook`
+
 Runs Storybook in the development mode. Open [http://localhost:6006](http://localhost:6006) to view it in the browser.
 
 ### `yarn build-storybook`
@@ -97,6 +98,7 @@ Executes all the specs over the console (does not open the Test Runner client).
 ## Project structure
     .
     ├── .storybook              # Storybook configuration
+    ├── cypress                 # Testing files
     ├── src                     # Source files
     ├── public                  # Root folder that gets served up as the final React app
     └── ...
@@ -108,7 +110,7 @@ For more information about other files included after CRA bootstrapping, check t
     src
     ├── API                     # Endpoints encapsulation
     ├── assets                  # Statics (images)
-    ├── components              # Atoms, molecules, organisms, pages, stories and tests
+    ├── components              # Atoms, molecules, organisms, pages and stories
     ├── contexts                # React Contexts (i.e. `AuthContext.tsx`)
     ├── hooks                   # React Hooks (i.e. `useSession.ts`)
     ├── utils                   # Tools and utilities (i.e. `Date.ts`)

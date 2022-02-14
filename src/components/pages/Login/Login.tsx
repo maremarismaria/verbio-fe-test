@@ -4,7 +4,7 @@ import { toast } from "react-toastify"
 import { authContext } from "../../../contexts/AuthContext"
 import Form from "../../molecules/Form/Form"
 import { ROUTES } from "../../../constants"
-import { Credentials, LoginResponse } from "../../../API/API"
+import { Credentials, LoginResponse } from "../../../API/API.def"
 import "./Login.scss"
 
 const Login: React.FC = () => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import { authContext } from "../../../contexts/AuthContext"
-import { BotMessage } from "../../../API/API"
+import { BotMessage } from "../../../API/API.def"
 import { getHour } from "../../../utils/Date"
 import Input from "../../atoms/Input/Input"
 import {

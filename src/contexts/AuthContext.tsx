@@ -1,18 +1,19 @@
 import React from "react"
 import useSession, { emptySession, Session } from "../hooks/useSession"
 import { DEFAULT_ERROR_MESSAGE } from "../constants"
+import { Credentials, MessageResponse } from "../API/API.def"
 import * as API from "../API/API"
 
 interface AuthContextType {
     session: Session
     login: (
-        credentials: API.Credentials,
+        credentials: Credentials,
         onSuccess: Function,
         onError: Function
     ) => void
     logout: (callback: Function) => void
-    getWelcomeMessage: () => Promise<API.APIResponse>
-    sendMessage: (text: string) => Promise<API.APIResponse>
+    getWelcomeMessage: () => Promise<MessageResponse>
+    sendMessage: (text: string) => Promise<MessageResponse>
 }
 
 const AuthContext = React.createContext<AuthContextType>(null!)
@@ -29,7 +30,7 @@ export function AuthContextProvider({
     const { session, setSession } = useSession()
 
     const login = async (
-        credentials: API.Credentials,
+        credentials: Credentials,
         onSuccess: Function,
         onError: Function
     ) => {

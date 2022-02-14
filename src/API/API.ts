@@ -1,4 +1,5 @@
 import { API_URL } from "../constants"
+import { Credentials, MessageResponse, LoginResponse } from "./API.def"
 
 const ENDPOINTS = {
     login: {
@@ -19,34 +20,9 @@ enum HTTPStatuses {
     UNAUTHORIZED = 401,
 }
 
-export type BotMessageType = "text" | "image"
-
-export type BotMessage = {
-    text?: string
-    url?: string
-    type: BotMessageType
-}
-
-export type APIResponse = {
-    data: BotMessage[]
-    error: string
-}
-
 /**
  * LOGIN
  */
-
-export type Credentials = {
-    user: string
-    password: string
-}
-
-export type LoginResponse = {
-    data: {
-        session_id: string
-    }
-    error: string
-}
 
 type LoginRequest = (credentials: Credentials) => Promise<LoginResponse>
 
@@ -77,7 +53,7 @@ export const login: LoginRequest = async (credentials) => {
  * GET WELCOME MESSAGE
  */
 
-type GetWelcomeMessageRequest = (token: string) => Promise<APIResponse>
+type GetWelcomeMessageRequest = (token: string) => Promise<MessageResponse>
 
 export const getWelcomeMessage: GetWelcomeMessageRequest = async (token) => {
     const response = await fetch(ENDPOINTS.getWelcomeMessage.uri, {
@@ -106,7 +82,10 @@ export const getWelcomeMessage: GetWelcomeMessageRequest = async (token) => {
  * SEND MESSAGE
  */
 
-type SendMessageRequest = (token: string, text: string) => Promise<APIResponse>
+type SendMessageRequest = (
+    token: string,
+    text: string
+) => Promise<MessageResponse>
 
 export const sendMessage: SendMessageRequest = async (token, text) => {
     const response = await fetch(ENDPOINTS.sendMessage.uri, {

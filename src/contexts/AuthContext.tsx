@@ -27,15 +27,20 @@ export function AuthContextProvider({
     const login = async (credentials: API.Credentials, callback: Function) => {
         const response = await API.login(credentials)
 
+        if (!response.data) {
+            callback(response)
+            return
+        }
+
         setSession(
             {
                 user: {
                     name: credentials.user,
                     isAuthenticated: true,
                 },
-                token: response.session_id,
+                token: response.data.session_id,
             },
-            callback
+            callback(response)
         )
     }
 

@@ -1,4 +1,5 @@
-import React from "react"
+import React, { ReactText } from "react"
+import { toast } from "react-toastify"
 import Input from "../../atoms/Input/Input"
 import "./Form.scss"
 
@@ -14,12 +15,41 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ action }) => {
+    let toastId: ReactText = ""
+
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
         const user = formData.get("user") as string
         const password = formData.get("password") as string
+
+        const missingUser = !user || !user.trim().length
+        const missingPassword = !password || !password.trim().length
+
+        if (missingUser || missingPassword) {
+            return renderWarning("Please, enter a correct user and password.")
+        }
+
         action({ user, password })
+    }
+
+    const renderWarning = (warning: string) => {
+        if (!!toastId) {
+            return
+        }
+
+        const toastOptions = {
+            onClose: () => {
+                toast.dismiss(toastId)
+                toastId = ""
+            },
+            autoClose: 6000,
+            closeOnClick: true,
+            type: toast.TYPE.WARNING,
+            position: toast.POSITION.TOP_RIGHT,
+        }
+
+        toastId = toast(warning, toastOptions)
     }
 
     return (

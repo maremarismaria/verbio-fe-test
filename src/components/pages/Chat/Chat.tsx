@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react"
-import Input from "../../atoms/Input/Input"
+import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 import { authContext } from "../../../contexts/AuthContext"
-import { getHour } from "../../../utils/Date"
 import { BotMessage } from "../../../API/API"
+import { getHour } from "../../../utils/Date"
+import Input from "../../atoms/Input/Input"
 import NullTheCat from "../../../assets/images/NullTheCat.png"
 import MochaTheChihuahua from "../../../assets/images/MochaTheChihuahua.jpg"
+import { DEFAULT_ERROR_MESSAGE, ROUTES } from "../../../constants"
 import "./Chat.scss"
 
 /**
@@ -26,51 +29,67 @@ interface ChatMessage extends BotMessage {
 
 const Chat: React.FC = () => {
     const auth = authContext()
+    const navigate = useNavigate()
     const formRef: React.RefObject<HTMLFormElement> = React.createRef()
     const [messages, setMessages] = useState<ChatMessage[]>([])
 
     useEffect(() => {
-        getWelcomeMessage()
+        if (!messages.length) {
+            getWelcomeMessage()
+        }
     }, [])
+
+    const isUser = (name: string) => {
+        return auth.session.user.name === name
+    }
 
     const updateMessages = (message: ChatMessage) => {
         setMessages((currentMessages) => [...currentMessages, message])
     }
 
-    const parseMessage = (sender: string, avatar: string, text: string) => {
+    const parseMessage = (
+        sender: string,
+        avatar: string,
+        message: BotMessage
+    ) => {
         return {
+            ...message,
+            timestamp: new Date(),
             sender: {
                 name: sender,
                 avatar,
             },
-            timestamp: new Date(),
-            text,
-            // TODO Image type
-            type: "",
-        }
+        } as ChatMessage
     }
 
     const setServerMessages = (messages: BotMessage[] | undefined) => {
         if (messages && !!messages.length) {
             for (let i = 0; i < messages.length; i++) {
-                const text = messages[i].text || ""
-                const message = parseMessage("Server", MochaTheChihuahua, text)
+                const message = parseMessage("Server", MochaTheChihuahua, {
+                    ...messages[i],
+                })
                 updateMessages(message)
             }
         }
     }
 
+    const setUserMessage = (text: string) => {
+        const message = parseMessage(auth.session.user.name, NullTheCat, {
+            text,
+            type: "text",
+        })
+
+        updateMessages(message)
+    }
+
     const getWelcomeMessage = async () => {
         try {
             const response = await auth.getWelcomeMessage()
-
-            if (!!response.error) {
-                alert(response.error)
-            }
-
-            setServerMessages(response.data)
+            !!response.error
+                ? renderError(response.error)
+                : setServerMessages(response.data)
         } catch (e) {
-            alert(e)
+            renderError(DEFAULT_ERROR_MESSAGE)
         }
     }
 
@@ -78,21 +97,18 @@ const Chat: React.FC = () => {
         try {
             const response = await auth.sendMessage(text)
 
-            const userMessage = parseMessage(
-                auth.session.user.name,
-                NullTheCat,
-                text
-            )
-
-            updateMessages(userMessage)
-
             if (!!response.error) {
-                alert(response.error)
+                renderError(response.error)
+            } else {
+                if (text !== "image") {
+                    setUserMessage(text)
+                } else {
+                    setUserMessage(text)
+                    setServerMessages(response.data)
+                }
             }
-
-            // TODO Image type
         } catch (e) {
-            alert(e)
+            renderError(DEFAULT_ERROR_MESSAGE)
         }
     }
 
@@ -112,8 +128,42 @@ const Chat: React.FC = () => {
         }
     }
 
-    const isUser = (name: string) => {
-        return auth.session.user.name === name
+    const renderError = (error: string) => {
+        const toastOptions = {
+            onClose: () => {
+                auth.logout(() => navigate(ROUTES.Login))
+                toast.dismiss()
+            },
+            autoClose: 6000,
+            closeOnClick: true,
+            type: toast.TYPE.ERROR,
+            position: toast.POSITION.TOP_RIGHT,
+        }
+
+        toast(error, toastOptions)
+    }
+
+    const renderTextMessage = (message: ChatMessage) => {
+        return <p className={"message"}>{message.text}</p>
+    }
+
+    const renderImageMessage = (message: ChatMessage) => {
+        const alt = `Image from ${message.sender.name}`
+        return (
+            <img
+                width={"120px"}
+                height={"120px"}
+                className={"image"}
+                alt={alt}
+                src={message.url}
+            />
+        )
+    }
+
+    const renderMessage = (message: ChatMessage) => {
+        return "image" === message.type
+            ? renderImageMessage(message)
+            : renderTextMessage(message)
     }
 
     const renderMessages = () => {
@@ -140,7 +190,7 @@ const Chat: React.FC = () => {
                                     <p className={"sender"}>
                                         {message.sender.name}
                                     </p>
-                                    <p className={"message"}>{message.text}</p>
+                                    {renderMessage(message)}
                                     <p className={"hour"}>
                                         {getHour(message.timestamp)}
                                     </p>
@@ -169,9 +219,12 @@ const Chat: React.FC = () => {
                         name={"message"}
                         type={"text"}
                         placeholder={"Write a message..."}
+                        autoComplete={"off"}
                         aria-required
                     />
-                    <button type={"submit"}>&#10148;</button>
+                    <button type={"submit"} aria-label={"Send"}>
+                        &#10148;
+                    </button>
                 </form>
             </div>
         </article>

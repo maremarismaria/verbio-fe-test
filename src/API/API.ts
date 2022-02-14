@@ -19,15 +19,17 @@ enum HTTPStatuses {
     UNAUTHORIZED = 401,
 }
 
+export type BotMessageType = "text" | "image"
+
 export type BotMessage = {
     text?: string
     url?: string
-    type: string
+    type: BotMessageType
 }
 
 export type APIResponse = {
-    data?: BotMessage[]
-    error?: string
+    data: BotMessage[]
+    error: string
 }
 
 /**
@@ -39,8 +41,11 @@ export type Credentials = {
     password: string
 }
 
-type LoginResponse = {
-    session_id: string
+export type LoginResponse = {
+    data: {
+        session_id: string
+    }
+    error: string
 }
 
 type LoginRequest = (credentials: Credentials) => Promise<LoginResponse>
@@ -54,7 +59,18 @@ export const login: LoginRequest = async (credentials) => {
         },
     })
 
-    return await response.json()
+    if (HTTPStatuses.UNAUTHORIZED === response.status) {
+        return {
+            data: undefined,
+            error: "The credentials you entered are incorrect. Please, check them and try again.",
+        }
+    }
+
+    const data = await response.json()
+    return {
+        data,
+        error: "",
+    }
 }
 
 /**

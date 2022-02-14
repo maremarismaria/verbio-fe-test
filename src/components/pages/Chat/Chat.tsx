@@ -5,9 +5,13 @@ import { authContext } from "../../../contexts/AuthContext"
 import { BotMessage } from "../../../API/API"
 import { getHour } from "../../../utils/Date"
 import Input from "../../atoms/Input/Input"
+import {
+    ROUTES,
+    DEFAULT_ERROR_MESSAGE,
+    SERVER_TYPING_INTERVAL,
+} from "../../../constants"
 import NullTheCat from "../../../assets/images/NullTheCat.png"
 import MochaTheChihuahua from "../../../assets/images/MochaTheChihuahua.jpg"
-import { DEFAULT_ERROR_MESSAGE, ROUTES } from "../../../constants"
 import "./Chat.scss"
 
 /**
@@ -15,7 +19,6 @@ import "./Chat.scss"
  *
  * NTH implement an emoji picker, but time runs out!
  * NTH initialize messages list using Local Storage
- * NTH update sender status from online to typing
  * NTH make the chat image clickable for full size preview
  */
 
@@ -77,7 +80,7 @@ const Chat: React.FC = () => {
                     setServerTyping(false)
                     clearInterval(intervalId)
                 }
-            }, 1500)
+            }, SERVER_TYPING_INTERVAL)
         }
     }
 

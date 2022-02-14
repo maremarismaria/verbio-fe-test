@@ -1,5 +1,6 @@
 import React from "react"
 import { Routes, Route, BrowserRouter } from "react-router-dom"
+import { ToastContainer } from "react-toastify"
 import { AuthContextProvider } from "../../../contexts/AuthContext"
 import AuthWrapper from "../../atoms/AuthWrapper/AuthWrapper"
 import Nav from "../../organisms/Nav/Nav"
@@ -9,6 +10,7 @@ import NotFound from "../NotFound/NotFound"
 import Logo from "../../../assets/images/logo.svg"
 import { ROUTES } from "../../../constants"
 import "./App.scss"
+import "react-toastify/dist/ReactToastify.css"
 
 const App: React.FC = () => {
     return (
@@ -38,6 +40,7 @@ const App: React.FC = () => {
                 <footer>
                     <p>María Morales</p>
                 </footer>
+                <ToastContainer />
             </div>
         </AuthContextProvider>
     )

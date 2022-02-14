@@ -48,7 +48,6 @@ const Login: React.FC = () => {
 
     return (
         <article className={"Login"}>
-            <h2>Welcome back!</h2>
             <Form action={login} />
         </article>
     )

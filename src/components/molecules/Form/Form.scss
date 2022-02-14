@@ -1,18 +1,45 @@
 @import "../../../design-tokens/colors.module.scss";
+@import "../../../design-tokens/breakpoints.module.scss";
 
 .Form {
-    padding: 1em;
+    padding: 3em 2em;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
+    background-color: $white;
+    margin: 0 auto;
+    width: 100%;
+    max-width: $small;
+    box-shadow: 2px 2px 8px darken($white, 12%);
+
+    h2 {
+        text-align: center;
+        margin-bottom: 1.5em;
+    }
+
+    label,
+    input {
+        width: 100%;
+    }
 
     label {
-        margin-bottom: 0.2em;
+        margin-bottom: 0.5em;
     }
 
     label + input {
         margin-bottom: 1em;
+    }
+
+    input[type="password"] {
+        margin-bottom: 1.5em;
+    }
+
+    @media (min-width: $small) {
+        label,
+        input {
+            width: 50%;
+        }
     }
 }

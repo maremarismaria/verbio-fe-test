@@ -37,9 +37,6 @@ const App: React.FC = () => {
                         </Routes>
                     </BrowserRouter>
                 </main>
-                <footer>
-                    <p>María Morales</p>
-                </footer>
                 <ToastContainer />
             </div>
         </AuthContextProvider>

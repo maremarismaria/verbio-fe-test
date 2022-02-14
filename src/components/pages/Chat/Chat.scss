@@ -2,11 +2,11 @@
 
 .Chat {
     display: flex;
+    height: 100%;
     flex-direction: column;
-    flex: 90%;
+    overflow: hidden;
 
     .chat-header {
-        flex: 10%;
         padding: 0.5em;
         background-color: darken($white, 10%);
 
@@ -19,11 +19,10 @@
             font-weight: bold;
             font-size: 1.2em;
             line-height: 1.2em;
-            margin-bottom: 0.2em;
+            margin-bottom: 0.5em;
         }
 
         .status {
-            // color: lighten($black, 10%);
             color: $success-main;
             font-weight: lighter;
             font-style: italic;
@@ -35,14 +34,13 @@
         list-style-type: none;
         padding: 1em;
         margin: 0;
-        flex: 80%;
+        flex: 1;
         overflow: auto;
 
         .message-item {
             display: flex;
             justify-content: flex-start;
             align-items: flex-end;
-            margin-bottom: 0.5em;
 
             &:not(:last-child) {
                 margin-bottom: 0.5em;
@@ -63,23 +61,24 @@
                 .sender,
                 .message,
                 .hour {
-                    margin: 0 0 0.5em;
                     font-size: 0.8em;
                     line-height: 1em;
                 }
 
                 .sender {
                     font-weight: bold;
+                    margin: 0 0 0.5em;
                 }
 
                 .message {
-                    margin-bottom: 0.8em;
+                    margin: 0 0 0.8em;
                 }
 
                 .hour {
                     color: lighten($black, 10%);
                     font-weight: lighter;
                     text-align: right;
+                    margin: 0;
                 }
             }
 
@@ -96,7 +95,6 @@
     }
 
     .message-box {
-        flex: 10%;
         background-color: darken($white, 10%);
         padding: 0.5em;
 

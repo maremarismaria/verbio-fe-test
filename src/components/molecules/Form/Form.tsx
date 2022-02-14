@@ -54,7 +54,8 @@ const Form: React.FC<Props> = ({ action }) => {
 
     return (
         <form className={"Form"} onSubmit={onSubmit}>
-            <label htmlFor="user">Username</label>
+            <h2>Welcome back!</h2>
+            <label htmlFor="user">User</label>
             <Input
                 id={"user"}
                 name={"user"}

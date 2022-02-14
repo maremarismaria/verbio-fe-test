@@ -11,6 +11,5 @@ export const getHour: (date: Date, locales?: string | string[]) => string = (
     const parser = new Intl.DateTimeFormat(locales, {
         timeStyle: "short",
     })
-
     return parser.format(date)
 }

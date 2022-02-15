@@ -9,6 +9,7 @@ import {
     ROUTES,
     DEFAULT_ERROR_MESSAGE,
     SERVER_TYPING_INTERVAL,
+    TOAST_CLOSING_DELAY,
 } from "../../../constants"
 import NullTheCat from "../../../assets/images/NullTheCat.png"
 import MochaTheChihuahua from "../../../assets/images/MochaTheChihuahua.jpg"
@@ -146,7 +147,7 @@ const Chat: React.FC = () => {
                 auth.logout(() => navigate(ROUTES.Login))
                 toast.dismiss()
             },
-            autoClose: 6000,
+            autoClose: TOAST_CLOSING_DELAY,
             closeOnClick: true,
             type: toast.TYPE.ERROR,
             position: toast.POSITION.TOP_RIGHT,

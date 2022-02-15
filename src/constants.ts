@@ -11,3 +11,5 @@ export const DEFAULT_ERROR_MESSAGE =
     "Sorry, there was an unknown problem. Please, try again later, and contact us if the problem persists."
 
 export const SERVER_TYPING_INTERVAL = 1500
+
+export const TOAST_CLOSING_DELAY = 6000

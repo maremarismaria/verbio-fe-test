@@ -1,6 +1,7 @@
 import React, { ReactText } from "react"
 import { toast } from "react-toastify"
 import Input from "../../atoms/Input/Input"
+import { TOAST_CLOSING_DELAY } from "../../../constants"
 import "./Form.scss"
 
 /**
@@ -44,7 +45,7 @@ const Form: React.FC<Props> = ({ action }) => {
                 toast.dismiss(toastId)
                 toastId = ""
             },
-            autoClose: 6000,
+            autoClose: TOAST_CLOSING_DELAY,
             closeOnClick: true,
             type: toast.TYPE.WARNING,
             position: toast.POSITION.TOP_RIGHT,

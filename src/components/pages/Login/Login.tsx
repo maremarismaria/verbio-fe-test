@@ -3,7 +3,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { authContext } from "../../../contexts/AuthContext"
 import Form from "../../molecules/Form/Form"
-import { ROUTES } from "../../../constants"
+import { ROUTES, TOAST_CLOSING_DELAY } from "../../../constants"
 import { Credentials, LoginResponse } from "../../../API/API.def"
 import "./Login.scss"
 
@@ -43,7 +43,7 @@ const Login: React.FC = () => {
                 toast.dismiss(toastId)
                 toastId = ""
             },
-            autoClose: 6000,
+            autoClose: TOAST_CLOSING_DELAY,
             closeOnClick: true,
             type: toast.TYPE.ERROR,
             position: toast.POSITION.TOP_RIGHT,

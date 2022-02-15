@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react"
+import React from "react"
 import { ComponentStory, ComponentMeta } from "@storybook/react"
 import NullTheCat from "../../../assets/images/NullTheCat.png"
 import MochaTheChihuahua from "../../../assets/images/MochaTheChihuahua.jpg"
@@ -44,7 +44,7 @@ Default.args = {
     receiver: "Null",
     messages: messages,
     typing: false,
-    onSubmit: (e: FormEvent) => {
-        e.preventDefault()
+    onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
     },
 }

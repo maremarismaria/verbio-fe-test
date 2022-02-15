@@ -34,7 +34,6 @@ export interface ChatMessage extends BotMessage {
 const Chat: React.FC = () => {
     const auth = authContext()
     const navigate = useNavigate()
-    const formRef: React.RefObject<HTMLFormElement> = React.createRef()
     const [messages, setMessages] = useState<ChatMessage[]>([])
     const [serverTyping, setServerTyping] = useState(false)
 
@@ -134,10 +133,7 @@ const Chat: React.FC = () => {
         }
 
         sendMessage(text)
-
-        if (formRef.current) {
-            formRef.current.reset()
-        }
+        event.currentTarget.reset()
     }
 
     const renderError = (error: string) => {

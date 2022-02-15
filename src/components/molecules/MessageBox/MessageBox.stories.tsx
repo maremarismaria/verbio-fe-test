@@ -16,5 +16,7 @@ const Template: ComponentStory<typeof MessageBox> = (args) => (
 export const Default = Template.bind({})
 
 Default.args = {
-    onSubmit: () => {},
+    onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+    },
 }

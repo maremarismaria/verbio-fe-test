@@ -3,14 +3,13 @@ import Input from "../../atoms/Input/Input"
 import "./MessageBox.scss"
 
 export interface Props {
-    formRef?: React.RefObject<HTMLFormElement>
     onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
 }
 
-const MessageBox: React.FC<Props> = ({ formRef, onSubmit }) => {
+const MessageBox: React.FC<Props> = ({ onSubmit }) => {
     return (
         <div className={"MessageBox"}>
-            <form ref={formRef} onSubmit={onSubmit}>
+            <form onSubmit={onSubmit}>
                 <Input
                     id={"message"}
                     name={"message"}

@@ -18,7 +18,6 @@ const ChatRoom: React.FC<Props> = ({
     isUser,
     messages,
     onSubmit,
-    formRef,
     receiver,
     typing,
 }) => {
@@ -49,7 +48,7 @@ const ChatRoom: React.FC<Props> = ({
         <article className="Chat">
             <ChatHeader receiver={receiver} typing={typing} />
             {renderMessages()}
-            <MessageBox formRef={formRef} onSubmit={onSubmit} />
+            <MessageBox onSubmit={onSubmit} />
         </article>
     )
 }

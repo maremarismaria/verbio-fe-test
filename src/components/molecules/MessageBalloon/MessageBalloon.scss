@@ -1,0 +1,62 @@
+@import "../../../design-tokens/colors.module.scss";
+
+.MessageBalloon {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+
+    &:not(:last-child) {
+        margin-bottom: 0.5em;
+    }
+
+    .avatar {
+        border-radius: 50%;
+        margin: 0 0.5em;
+        object-fit: cover;
+    }
+
+    .message-wrapper {
+        padding: 0.5em;
+        border: 2px solid $info-main;
+        background-color: rgba($info-light, 0.5);
+        border-radius: 12px 12px 12px 0;
+        min-width: 120px;
+
+        .sender,
+        .message,
+        .hour {
+            font-size: 0.8em;
+            line-height: 1em;
+        }
+
+        .sender {
+            font-weight: bold;
+            margin: 0 0 0.5em;
+        }
+
+        .message {
+            margin: 0 0 0.8em;
+        }
+
+        .image {
+            object-fit: cover;
+        }
+
+        .hour {
+            color: lighten($black, 10%);
+            font-weight: lighter;
+            text-align: right;
+            margin: 0;
+        }
+    }
+
+    &.self {
+        flex-direction: row-reverse;
+
+        .message-wrapper {
+            border: 2px solid $secondary-dark;
+            background-color: rgba($secondary-main, 0.5);
+            border-radius: 12px 12px 0 12px;
+        }
+    }
+}

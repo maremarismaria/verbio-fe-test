@@ -3,14 +3,13 @@ import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import { authContext } from "../../../contexts/AuthContext"
 import { BotMessage } from "../../../API/API.def"
-import { getHour } from "../../../utils/Date"
-import Input from "../../atoms/Input/Input"
 import {
     ROUTES,
     DEFAULT_ERROR_MESSAGE,
     SERVER_TYPING_INTERVAL,
     TOAST_CLOSING_DELAY,
 } from "../../../constants"
+import ChatRoom from "../../organisms/ChatRoom/ChatRoom"
 import NullTheCat from "../../../assets/images/NullTheCat.png"
 import MochaTheChihuahua from "../../../assets/images/MochaTheChihuahua.jpg"
 import "./Chat.scss"
@@ -24,7 +23,7 @@ import "./Chat.scss"
  * NTH keep scroll on the bottom after sending or receiving messages
  */
 
-interface ChatMessage extends BotMessage {
+export interface ChatMessage extends BotMessage {
     sender: {
         name: string
         avatar: string
@@ -156,93 +155,14 @@ const Chat: React.FC = () => {
         toast(error, toastOptions)
     }
 
-    const renderTextMessage = (message: ChatMessage) => {
-        return <p className={"message"}>{message.text}</p>
-    }
-
-    const renderImageMessage = (message: ChatMessage) => {
-        const alt = `Image from ${message.sender.name}`
-        return (
-            <img
-                width={"120px"}
-                height={"120px"}
-                className={"image"}
-                alt={alt}
-                src={message.url}
-            />
-        )
-    }
-
-    const renderMessage = (message: ChatMessage) => {
-        return "image" === message.type
-            ? renderImageMessage(message)
-            : renderTextMessage(message)
-    }
-
-    const renderMessages = () => {
-        /**
-         * React.Children.toArray manages automatically the children's keys,
-         * so we do not have to pass them explicitly
-         */
-        return (
-            <ul className={"message-list"}>
-                {React.Children.toArray(
-                    messages.map((message) => {
-                        const isSelf = isUser(message.sender.name)
-                        const modifier = isSelf ? "self" : ""
-                        return (
-                            <li className={`message-item ${modifier}`}>
-                                <img
-                                    className={"avatar"}
-                                    width={"32px"}
-                                    height={"32px"}
-                                    alt={message.sender.name}
-                                    src={message.sender.avatar}
-                                />
-                                <div className={"message-wrapper"}>
-                                    <p className={"sender"}>
-                                        {message.sender.name}
-                                    </p>
-                                    {renderMessage(message)}
-                                    <p className={"hour"}>
-                                        {getHour(message.timestamp)}
-                                    </p>
-                                </div>
-                            </li>
-                        )
-                    })
-                )}
-            </ul>
-        )
-    }
-
     return (
-        <article className="Chat">
-            <div className={"chat-header"}>
-                <p className={"receiver"}>Server</p>
-                <p className={"status"}>
-                    {serverTyping ? "Typing..." : "Online"}
-                </p>
-            </div>
-
-            {renderMessages()}
-
-            <div className={"message-box"}>
-                <form ref={formRef} onSubmit={onSubmit}>
-                    <Input
-                        id={"message"}
-                        name={"message"}
-                        type={"text"}
-                        placeholder={"Write a message..."}
-                        autoComplete={"off"}
-                        aria-required
-                    />
-                    <button type={"submit"} aria-label={"Send"}>
-                        &#10148;
-                    </button>
-                </form>
-            </div>
-        </article>
+        <ChatRoom
+            isUser={isUser}
+            receiver={"Server"}
+            messages={messages}
+            typing={serverTyping}
+            onSubmit={onSubmit}
+        />
     )
 }
 

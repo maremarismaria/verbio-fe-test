@@ -24,9 +24,26 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import { STORAGE_KEY } from "../../src/constants"
+
 Cypress.Commands.add("login", ({ user, password }) => {
     cy.visit(Cypress.env().slug.index)
-    cy.get("form input[name=user]").type(user)
-    cy.get("form input[name=password]").type(password)
+
+    if (user) {
+        cy.get("form input[name=user]").type(user)
+    }
+
+    if (password) {
+        cy.get("form input[name=password]").type(password)
+    }
+
     cy.get("form input[type=submit]").click()
+})
+
+Cypress.Commands.add("chat", (message) => {
+    cy.get(".Chat form input[name=message]").type(message).type("{enter}")
+})
+
+Cypress.Commands.add("flushSession", () => {
+    window.sessionStorage.removeItem(STORAGE_KEY)
 })

@@ -41,7 +41,9 @@ Cypress.Commands.add("login", ({ user, password }) => {
 })
 
 Cypress.Commands.add("chat", (message) => {
-    cy.get(".Chat form input[name=message]").type(message).type("{enter}")
+    cy.get(".Chat form input[name=message]").clear()
+    cy.get(".Chat form input[name=message]").type(message)
+    cy.get(".Chat form button").click()
 })
 
 Cypress.Commands.add("flushSession", () => {

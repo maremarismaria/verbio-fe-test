@@ -12,7 +12,7 @@ import "./Form.scss"
  */
 
 interface Props {
-    action: (credentials: { user: string; password: string }) => unknown
+    action: (credentials: { user: string; password: string }) => void
 }
 
 const Form: React.FC<Props> = ({ action }) => {

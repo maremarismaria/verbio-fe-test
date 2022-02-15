@@ -1,0 +1,26 @@
+@import "../../../design-tokens/colors.module.scss";
+
+.ChatHeader {
+    padding: 0.5em;
+    background-color: darken($white, 10%);
+
+    .receiver,
+    .status {
+        margin: 0;
+    }
+
+    .receiver {
+        font-weight: bold;
+        font-size: 1.2em;
+        line-height: 1.2em;
+        margin-bottom: 0.5em;
+    }
+
+    .status {
+        color: $success-main;
+        font-weight: lighter;
+        font-style: italic;
+        font-size: 0.8em;
+        line-height: 0.8em;
+    }
+}

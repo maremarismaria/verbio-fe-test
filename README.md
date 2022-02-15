@@ -83,6 +83,8 @@ Formats all files supported by Prettier in the current directory and its subdire
 
 Runs Storybook in the development mode. Open [http://localhost:6006](http://localhost:6006) to view it in the browser.
 
+![Storybook](src/assets/readme/storybook.png)
+
 ### `yarn build-storybook`
 
 Builds Storybook for production to the `storybook-static` folder.

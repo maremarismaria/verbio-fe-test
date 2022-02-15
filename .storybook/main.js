@@ -15,7 +15,7 @@ module.exports = {
     previewHead: (head) => `
         ${head}
         <style>
-          #root {
+          #root, #docs-root {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
             "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
             "Helvetica Neue", sans-serif;

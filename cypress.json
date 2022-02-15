@@ -5,7 +5,7 @@
         "slug": {
             "index": "/",
             "chat": "/chat",
-            "not-found": "/insignificant"
+            "notFound": "/insignificant"
         }
     }
 }

@@ -1,0 +1,44 @@
+@import "../../../design-tokens/colors.module.scss";
+
+.MessageBox {
+    background-color: darken($white, 10%);
+    padding: 0.5em;
+
+    form {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    input {
+        flex: 80%;
+        margin-right: 0.5em;
+    }
+
+    button {
+        flex: 20%;
+        cursor: pointer;
+        text-align: center;
+        padding: 0.5em 1em;
+        margin: 0;
+        border: none;
+        border-radius: 50%;
+        color: $white;
+        text-transform: uppercase;
+        font-weight: bold;
+        background-color: $secondary-dark;
+        transition: background-color 0.3s;
+        height: 32px;
+        width: 32px;
+        max-width: 32px;
+        font-size: 1em;
+        line-height: 1em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            background-color: darken($secondary-dark, 10%);
+        }
+    }
+}

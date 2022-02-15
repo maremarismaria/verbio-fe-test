@@ -37,7 +37,7 @@ On the project root:
 
 ## Available routes
 
-### / or /login
+### / (root)
 
 ![Login page](src/assets/readme/login.png)
 

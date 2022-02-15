@@ -89,16 +89,26 @@ Builds Storybook for production to the `storybook-static` folder.
 
 ### `cypress:open`
 
-Open the Cypress Component Test Runner.
+Open the Cypress Test Runner. Before launching this script, please:
+
+1. Verify you launched the application on development mode (`yarn start`), otherwise all the suites will be broken because there is no base URL to visit.
+2. Verify you launched the backend, because there is no mocks or endpoint interceptions implemented.
+
+![Green Cypress Test Runner](src/assets/readme/cypress.png)
 
 ### `cypress:run`
 
-Executes all the specs over the console (does not open the Test Runner client).
+Executes all the specs over the console (does not open the Test Runner client). Before launching this script, please:
+
+1. Verify you launched the application on development mode (`yarn start`), otherwise all the suites will be broken because there is no base URL to visit.
+2. Verify you launched the backend, because there is no mocks or endpoint interceptions implemented.
+
+![Green Cypress Run](src/assets/readme/cypress-run.png)
 
 ## Project structure
     .
     ├── .storybook              # Storybook configuration
-    ├── cypress                 # Testing files
+    ├── cypress                 # Testing files. Under cypress/tests there are suites for the chat, login, routes and session
     ├── src                     # Source files
     ├── public                  # Root folder that gets served up as the final React app
     └── ...
